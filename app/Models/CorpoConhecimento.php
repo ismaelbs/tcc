@@ -11,5 +11,16 @@ class CorpoConhecimento extends Model
 
     protected $fillable = [
         'tema',
+        'enabled'
     ];
+
+    public function disable() {
+        $this->enabled = false;
+        $this->save();
+    }
+
+    public function enable() {
+        $this->enabled = true;
+        $this->save();
+    }
 }
