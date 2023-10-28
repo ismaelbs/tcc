@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/corpo_conhecimento/create', [CorpoConhecimentoController::class, 'create'])->name('corpo_conhecimento.create');
     Route::post('/corpo_conhecimento', [CorpoConhecimentoController::class, 'store'])->name('corpo_conhecimento.store');
+    Route::patch('/corpo_conhecimento/{corpoConhecimento}', [CorpoConhecimentoController::class, 'update'])->name('corpo_conhecimento.update');
 });
 
 require __DIR__.'/auth.php';

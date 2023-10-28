@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CorpoConhecimento;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class CorpoConhecimentoController extends Controller
@@ -30,10 +30,10 @@ class CorpoConhecimentoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validateInput = $request->validate([
-            'tema' => ['required', 'max:50'],
+            'tema' => ['required', 'max:255', 'string'],
         ]);
 
         CorpoConhecimento::create($validateInput);
@@ -60,9 +60,15 @@ class CorpoConhecimentoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CorpoConhecimento $corpoConhecimento)
+    public function update(Request $request, CorpoConhecimento $corpoConhecimento): RedirectResponse
     {
-        //
+        $validateInput = $request->validate([
+            'tema' => ['required', 'max:255', 'string'],
+        ]);
+
+        $corpoConhecimento->update($validateInput);
+
+        return redirect(route('corpo_conhecimento.create'));
     }
 
     /**

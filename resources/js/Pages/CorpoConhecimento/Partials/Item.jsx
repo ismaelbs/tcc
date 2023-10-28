@@ -4,7 +4,6 @@ import { HiBookOpen } from 'react-icons/hi';
 import { HiEllipsisVertical } from "react-icons/hi2";
 import { EditForm } from './EditForm';
 
-
 export default function Item({ corpoconhecimento }) {
     const [editing, setEditing] = useState(false);
 
@@ -29,7 +28,7 @@ export default function Item({ corpoconhecimento }) {
 
                 <div className="flex justify-between gap-2 items-center">
                     <div className="p-2">
-                        {editing ? <EditForm corpoconhecimento={corpoconhecimento} setEditing={setEditing}/> : <span className="dark:text-gray-100">{corpoconhecimento}</span>
+                        {editing ? <EditForm corpoconhecimento={corpoconhecimento} setEditing={setEditing}/> : <span className="dark:text-gray-100">{corpoconhecimento.tema}</span>
                         }
                     </div>
                 </div>
