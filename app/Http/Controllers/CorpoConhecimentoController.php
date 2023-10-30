@@ -38,13 +38,13 @@ class CorpoConhecimentoController extends Controller
         return redirect(route('corpo_conhecimento.create'));
     }
 
-    public function disable(CorpoConhecimento $corpoConhecimento)
+    public function disable(CorpoConhecimento $corpoConhecimento): RedirectResponse
     {
         $corpoConhecimento->disable();
         return redirect(route('corpo_conhecimento.create'));
     }
 
-    public function enable(CorpoConhecimento $corpoConhecimento)
+    public function enable(CorpoConhecimento $corpoConhecimento): RedirectResponse
     {
         $corpoConhecimento->enable();
         return redirect(route('corpo_conhecimento.create'));
