@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { HiBookOpen } from 'react-icons/hi';
 import { HiEllipsisVertical } from "react-icons/hi2";
 import { EditForm } from './EditForm';
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 
 export default function Item({ corpoconhecimento }) {
     const [editing, setEditing] = useState(false);
@@ -55,7 +55,8 @@ export default function Item({ corpoconhecimento }) {
 
                 <div className="flex justify-between gap-2 items-center">
                     <div className="p-2">
-                        {editing ? <EditForm corpoconhecimento={corpoconhecimento} setEditing={setEditing} /> : <span className="dark:text-gray-100">{corpoconhecimento.tema}</span>
+                        {editing ? <EditForm corpoconhecimento={corpoconhecimento} setEditing={setEditing} /> : <Link as="button" disabled={!corpoconhecimento.enabled} href={route('disciplina.create', corpoconhecimento.id)} className={`dark:text-gray-100 disabled:text-slate-500
+                        disabled:cursor-not-allowed`}>{corpoconhecimento.tema}</Link>
                         }
                     </div>
                 </div>
