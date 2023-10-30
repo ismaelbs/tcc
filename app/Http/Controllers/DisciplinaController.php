@@ -2,64 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CorpoConhecimento;
 use App\Models\Disciplina;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class DisciplinaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function create(CorpoConhecimento $corpoConhecimento)
     {
-        //
+        return Inertia::render('Disciplina/Index', [
+            'disciplinas' => $corpoConhecimento->disciplinas()->get(),
+            'corpoConhecimento' => $corpoConhecimento->only(['id', 'tema'])
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(Request $request): RedirectResponse
     {
-        //
+        $validateInput = $request->validate([
+            'descricao' => ['required', 'max:255', 'string'],
+            'corpo_conhecimento_id' => ['required', 'integer'],
+        ]);
+
+        Disciplina::create($validateInput);
+  
+        return redirect(route('disciplina.create', ['corpoConhecimento' => $validateInput['corpo_conhecimento_id']]));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(Request $request, Disciplina $disciplina): RedirectResponse
     {
-        //
+        if (!$disciplina->enabled) {
+            return redirect(route('disciplina.create', ['corpoConhecimento' => $disciplina->corpo_conhecimento_id]));
+        }
+
+        $validateInput = $request->validate([
+            'descricao' => ['required', 'max:255', 'string'],
+        ]);
+
+        $disciplina->update($validateInput);
+
+        return redirect(route('disciplina.create', ['corpoConhecimento' => $disciplina->corpo_conhecimento_id]));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Disciplina $disciplina)
+    public function enable(Disciplina $disciplina): RedirectResponse
     {
-        //
+        $disciplina->enable();
+        return redirect(route('disciplina.create', ['corpoConhecimento' => $disciplina->corpo_conhecimento_id]));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Disciplina $disciplina)
+    public function disable(Disciplina $disciplina): RedirectResponse
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Disciplina $disciplina)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Disciplina $disciplina)
-    {
-        //
+        $disciplina->disable();
+        return redirect(route('disciplina.create', ['corpoConhecimento' => $disciplina->corpo_conhecimento_id]));
     }
 }

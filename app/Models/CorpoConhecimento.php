@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CorpoConhecimento extends Model
 {
@@ -13,6 +14,10 @@ class CorpoConhecimento extends Model
         'tema',
         'enabled'
     ];
+
+    public function disciplinas(): HasMany {
+        return $this->hasMany(Disciplina::class);
+    }
 
     public function disable() {
         $this->enabled = false;
