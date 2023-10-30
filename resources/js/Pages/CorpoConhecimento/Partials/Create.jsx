@@ -6,13 +6,19 @@ import { Transition } from "@headlessui/react";
 import { useForm } from "@inertiajs/react";
 
 export default function Create() {
-    const { data, setData, post, errors, processing, recentlySuccessful } = useForm({
+    const { data, setData, post, errors, processing, recentlySuccessful, reset } = useForm({
         tema: '',
     });
+
     const onSubmitHandler = e => {
         e.preventDefault();
-        post(route('corpo_conhecimento.store'));
+        post(route('corpo_conhecimento.store'), {
+            onSuccess: () => {
+                reset('tema');
+            }
+        });
     }
+
     return (
         <section>
             <header>
