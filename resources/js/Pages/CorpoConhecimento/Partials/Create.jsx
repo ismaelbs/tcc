@@ -1,8 +1,9 @@
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Transition } from "@headlessui/react";
+import { CreateContext } from "@/Pages/Shared/Context/useCreateContext";
+import { CreateForm } from "@/Pages/Shared/CreateForm";
+import { SectionHeader } from "@/Pages/Shared/SectionHeader";
 import { useForm } from "@inertiajs/react";
 
 export default function Create() {
@@ -10,57 +11,29 @@ export default function Create() {
         tema: '',
     });
 
-    const onSubmitHandler = e => {
-        e.preventDefault();
-        post(route('corpo_conhecimento.store'), {
-            onSuccess: () => {
-                reset('tema');
-            }
-        });
-    }
-
     return (
-        <section>
-            <header>
-                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Criar novo corpo de conhecimento</h2>
+        <CreateContext.Provider value={{ post, processing, recentlySuccessful, reset }}>
+            <section>
+                <SectionHeader title="Criar novo corpo de conhecimento" description="Crie novos corpos de conhecimento para os questionários." />
+                <CreateForm path="corpo_conhecimento.store">
+                    <div>
+                        <InputLabel htmlFor="descricao" value="Descrição" />
 
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    Crie novos corpos de conhecimento para os questionários.
-                </p>
-            </header>
+                        <TextInput
+                            id="descricao"
+                            className="mt-1 block w-full"
+                            value={data.tema}
+                            onChange={(e) => setData('tema', e.target.value)}
+                            required
+                            isFocused
+                            autoComplete="Descrição"
+                        />
 
-            <form onSubmit={onSubmitHandler} className="mt-6 space-y-6">
-                <div>
-                    <InputLabel htmlFor="descricao" value="Descrição" />
-
-                    <TextInput
-                        id="descricao"
-                        className="mt-1 block w-full"
-                        value={data.tema}
-                        onChange={(e) => setData('tema', e.target.value)}
-                        required
-                        isFocused
-                        autoComplete="Descrição"
-                    />
-
-                    <InputError className="mt-2" message={errors.tema} />
-                </div>
-
-                <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Salvar</PrimaryButton>
-
-                    <Transition
-                        show={recentlySuccessful}
-                        enter="transition ease-in-out"
-                        enterFrom="opacity-0"
-                        leave="transition ease-in-out"
-                        leaveTo="opacity-0"
-                    >
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Criado.</p>
-                    </Transition>
-                </div>
-            </form>
-        </section>
+                        <InputError className="mt-2" message={errors.tema} />
+                    </div>
+                </CreateForm>
+            </section>
+        </CreateContext.Provider>
 
     );
 }
