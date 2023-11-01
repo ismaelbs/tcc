@@ -39,8 +39,15 @@ export default function Item({ corpoconhecimento }) {
                 <ActionHeader settings={actionSettings} />
                 <div className="flex justify-between gap-2 items-center">
                     <div className="p-2 w-full">
-                        {editing ? <EditForm corpoconhecimento={corpoconhecimento} setEditing={setEditing} /> : <Link as="button" disabled={!corpoconhecimento.enabled} href={route('disciplina.create', corpoconhecimento.id)} className={`dark:text-gray-100 disabled:text-slate-500
-                        disabled:cursor-not-allowed`}>{corpoconhecimento.tema}</Link>
+                        {editing && <EditForm corpoconhecimento={corpoconhecimento} setEditing={setEditing} />} 
+                        {!editing && 
+                            <Link 
+                                as="button" 
+                                disabled={!corpoconhecimento.enabled} 
+                                href={route('disciplina.create', corpoconhecimento.id)} 
+                                className="dark:text-gray-100 disabled:text-slate-500 disabled:cursor-not-allowed">
+                                    {corpoconhecimento.tema}
+                            </Link>
                         }
                     </div>
                 </div>
