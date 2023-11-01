@@ -38,6 +38,5 @@ export default function Create({ corpoConhecimento }) {
                 </CreateForm>
             </section>
         </CreateContext.Provider>
-
     );
 }
