@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Disciplina extends Model
 {
@@ -18,6 +19,10 @@ class Disciplina extends Model
 
     public function corpoConhecimento(): BelongsTo {
         return $this->belongsTo(CorpoConhecimento::class);
+    }
+
+    public function assuntos(): HasMany {
+        return $this->hasMany(Assunto::class);
     }
 
     public function enable(): void {
