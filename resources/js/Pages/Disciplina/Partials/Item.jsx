@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { EditForm } from './EditForm';
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import { ActionHeader } from '@/Pages/Shared/ActionHeader';
 
 export default function Item({ disciplina }) {
@@ -34,8 +34,10 @@ export default function Item({ disciplina }) {
 
                 <div className="flex justify-between gap-2 items-center">
                     <div className="p-2">
-                        {editing ? <EditForm disciplina={disciplina} setEditing={setEditing} /> : <span className="dark:text-gray-100">{disciplina.descricao}</span>
-                        }
+                        {editing && <EditForm disciplina={disciplina} setEditing={setEditing} />}
+                        {!editing && 
+                        <Link as="button" disabled={!disciplina.enabled} href={route('assunto.create', disciplina.id)} className="dark:text-gray-100 disabled:text-slate-500
+                        disabled:cursor-not-allowed">{disciplina.descricao}</Link>}
                     </div>
                 </div>
             </div>
