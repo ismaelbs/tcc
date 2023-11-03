@@ -39,7 +39,7 @@ export default function Item({ assunto }) {
                             <Link 
                                 as="button" 
                                 disabled={!assunto.enabled} 
-                                // href={TODO} 
+                                href={route('questao.create', assunto.id)} 
                                 className="dark:text-gray-100 disabled:text-slate-500 disabled:cursor-not-allowed">
                                     {assunto.descricao}
                             </Link>}
