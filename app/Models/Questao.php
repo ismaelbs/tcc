@@ -13,11 +13,26 @@ class Questao extends Model
     protected $table = 'questoes';
 
     protected $fillable = [
+        'enabled',
         'enunciado',
         'assunto_id',
     ];
 
+    protected $casts = [
+        'enabled' => 'boolean',
+    ];
+
     public function assunto(): BelongsTo {
         return $this->belongsTo(Assunto::class);
+    }
+
+    public function enable(): void {
+        $this->enabled = true;
+        $this->save();
+    }
+
+    public function disable(): void {
+        $this->enabled = false;
+        $this->save();
     }
 }

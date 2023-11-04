@@ -1,9 +1,9 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import Create from './Partials/Create';
-// import List from './Partials/List';
+import List from './Partials/List';
 
-export default function Index({ auth, assunto }) {
+export default function Index({ auth, assunto, questoes }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -18,7 +18,7 @@ export default function Index({ auth, assunto }) {
                     </div>
 
                     <div className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                        {/* <List disciplinas={disciplinas} /> */}
+                        {<List questoes={questoes} />}
                     </div>
                 </div>
             </div>

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('questoes', function (Blueprint $table) {
             $table->id();
+            $table->text('enunciado')->nullable(false);
             $table->boolean('enabled')->default(false);
             $table->foreignId('assunto_id')->constrained('assuntos');
             $table->timestamps();
