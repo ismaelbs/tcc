@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useForm } from '@inertiajs/react';
 import { ActionHeader } from '@/Pages/Shared/ActionHeader';
+import { EditForm } from './EditForm';
 
 export default function Item({ questao }) {
     const [editing, setEditing] = useState(false);
@@ -30,14 +31,11 @@ export default function Item({ questao }) {
         <div className="p-6 flex space-x-2 bg-gray-900 rounded-md">
             <div className="flex-1 flex-col">
                 <ActionHeader settings={actionSettings} />
-
-                <div className="flex justify-between gap-2 items-center">
-                    <div className="p-2">
-                        {/* {editing && <EditForm questao={questao} setEditing={setEditing} />} */}
-                        {!editing && 
-                            <p className="mt-1 text-lg text-gray-600 dark:text-gray-400">{questao.enunciado}</p>
-                        }
-                    </div>
+                <div className="block">
+                    {editing && <EditForm questao={questao} setEditing={setEditing} />}
+                    {!editing && 
+                        <p className="mt-1 text-lg text-gray-600 dark:text-gray-400">{questao.enunciado}</p>
+                    }
                 </div>
             </div>
         </div>

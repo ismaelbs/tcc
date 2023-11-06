@@ -36,6 +36,21 @@ class QuestaoController extends Controller
         return redirect(route('questao.create', ['assunto' => $validateInput['assunto_id']]));
     }
 
+    public function update(Request $request, Questao $questao): RedirectResponse
+    {
+        if (!$questao->enabled) {
+            return redirect(route('questao.create', ['assunto' => $questao->assunto_id]));
+        }
+
+        $validateInput = $request->validate([
+            'enunciado' => ['required', 'string'],
+        ]);
+
+        $questao->update($validateInput);
+
+        return redirect(route('questao.create', ['assunto' => $questao->assunto_id]));
+    }
+
     public function enable(Questao $questao): RedirectResponse
     {
         $questao->enable();
