@@ -38,4 +38,5 @@ require __DIR__.'/assunto.php';
 require __DIR__.'/corpo_conhecimento.php';
 require __DIR__.'/disciplina.php';
 require __DIR__.'/questao.php';
+require __DIR__.'/respostas.php';
 require __DIR__.'/auth.php';
