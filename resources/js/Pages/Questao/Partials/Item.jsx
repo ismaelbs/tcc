@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { useForm } from '@inertiajs/react';
 import { ActionHeader } from '@/Pages/Shared/ActionHeader';
 import { EditForm } from './EditForm';
+import { BiMessageSquareAdd } from "react-icons/bi";
+import { RespostaModal } from './RespostaModal';
 
 export default function Item({ questao }) {
     const [editing, setEditing] = useState(false);
+    const [respostaModal, setRespostaModal] = useState(false);
     const { patch } = useForm(questao);
 
     const onDisableHandler = (e) => {
@@ -30,10 +33,15 @@ export default function Item({ questao }) {
     return (
         <div className="p-6 flex space-x-2 bg-gray-900 rounded-md">
             <div className="flex-1 flex-col">
-                <ActionHeader settings={actionSettings} />
+                <ActionHeader settings={actionSettings}>
+                    <button className="block w-full p-2 text-left text-sm leading-5 text-gray-300 hover:bg-gray-800 focus:bg-gray-800 hover:text-gray-100 transition duration-150 ease-in-out disabled:cursor-not-allowed" onClick={() => setRespostaModal(true)} >
+                        <BiMessageSquareAdd />
+                    </button>
+                </ActionHeader>
+                {respostaModal && <RespostaModal  closeModal={ () => setRespostaModal(false) } questao={questao}/>}
                 <div className="block">
                     {editing && <EditForm questao={questao} setEditing={setEditing} />}
-                    {!editing && 
+                    {!editing &&
                         <p className="mt-1 text-lg text-gray-600 dark:text-gray-400">{questao.enunciado}</p>
                     }
                 </div>
