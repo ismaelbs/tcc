@@ -81,7 +81,13 @@ class RespostaController extends Controller
      */
     public function update(Request $request, Resposta $resposta)
     {
-        //
+        $validateInput = $request->validate([
+            'descricao' => ['required', 'string'],
+        ]);
+
+        $resposta->update($validateInput);
+
+        return redirect(route('questao.create', ['assunto' => $resposta->questao->assunto_id]));
     }
 
     /**

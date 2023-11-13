@@ -4,7 +4,7 @@ import { AiTwotoneEdit } from "react-icons/ai";
 import { useForm } from "@inertiajs/react";
 import { useState } from "react";
 
-export function RespostaItem({ resposta, markAsCorrect }) {
+export function RespostaItem({ resposta }) {
     const [editing, setEditing] = useState(false);
     const { patch } = useForm(resposta);
     const markAsCorretaHandler = (e, resposta) => {
@@ -12,7 +12,6 @@ export function RespostaItem({ resposta, markAsCorrect }) {
         patch(route('resposta.markAsCorrect', resposta.id), {
             onSuccess: () => {
                 setEditing(false);
-                markAsCorrect(resposta);
             },
             preserveScroll: true,
         });

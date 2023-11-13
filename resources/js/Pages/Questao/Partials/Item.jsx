@@ -10,7 +10,6 @@ export default function Item({ questao }) {
     const [editing, setEditing] = useState(false);
     const [respostaModal, setRespostaModal] = useState(false);
     const { patch } = useForm(questao);
-    const [respostas, setRespostas] = useState(questao.respostas);
 
     const onDisableHandler = (e) => {
         e.preventDefault();
@@ -32,13 +31,6 @@ export default function Item({ questao }) {
         onEditClick: () => setEditing(true),
     };
 
-    const markAsCorrect = resposta => {
-        setRespostas(respostas.map(r => {
-            r.correta = r.id === resposta.id
-            return r;
-        }));
-    }
-
     return (
         <div className="p-6 flex space-x-2 bg-gray-900 rounded-md">
             <div className="flex-1 flex-col">
@@ -56,10 +48,10 @@ export default function Item({ questao }) {
                     {!editing &&
                         <>
                             <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight mt-10">Respostas:</h2>
-                            {respostas.length === 0 && (<p className="mt-1 text-center text-sm text-gray-600 dark:text-gray-400">Nenhuma resposta cadastrada no momento.</p>)}
+                            {questao.respostas.length === 0 && (<p className="mt-1 text-center text-sm text-gray-600 dark:text-gray-400">Nenhuma resposta cadastrada no momento.</p>)}
                             <ul className="grid grid-cols-1 gap-2 divide-y-2 divide-gray-400 list-none">
-                                {respostas.map(resposta => (
-                                    <RespostaItem key={resposta.id} resposta={resposta} markAsCorrect={markAsCorrect} />
+                                {questao.respostas.map(resposta => (
+                                    <RespostaItem key={resposta.id} resposta={resposta} />
                                 ))}
                             </ul>
                         </>
