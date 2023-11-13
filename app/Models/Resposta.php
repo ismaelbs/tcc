@@ -18,10 +18,6 @@ class Resposta extends Model
         'questao_id',
     ];
 
-    protected $casts = [
-        'enabled' => 'boolean',
-    ];
-
     public function questao(): BelongsTo {
         return $this->belongsTo(Questao::class);
     }

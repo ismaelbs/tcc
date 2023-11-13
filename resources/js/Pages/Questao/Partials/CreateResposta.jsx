@@ -9,6 +9,7 @@ import { useForm } from "@inertiajs/react";
 export default function CreateResposta({ questao }) {
     const { data, setData, post, errors, processing, recentlySuccessful, reset } = useForm({
         questao_id: questao.id,
+        assunto_id: questao.assunto_id,
         descricao: '',
         correta: '0',
     });
