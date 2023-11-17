@@ -27,6 +27,9 @@ export default function Authenticated({ user, header, children }) {
                                 <NavLink href={route('corpo_conhecimento.create')} active={route().current('corpo_conhecimento.create')}>
                                     Cadastro
                                 </NavLink>
+                                <NavLink href={route('questionario.create')} active={route().current('questionario.create')}>
+                                    Questionários
+                                </NavLink>
                             </div>
                         </div>
 
