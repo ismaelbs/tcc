@@ -21,21 +21,13 @@ class QuestionarioQuestoesController extends Controller
     {
         $questionario->questoes()->attach($questao);
 
-        return Inertia::render('QuestionarioQuestoes/Index', [
-            'questionario' => $questionario,
-            'questoesAdicionadas' => $questionario->questoes()->with('assunto')->get(), 
-            'questoesAdicionaveis' => Questao::whereNotIn('id', $questionario->questoes->pluck('id'))->with('assunto')->get(),
-        ]);
+        return Inertia::location(route('questionario_questoes.index', $questionario));
     }
 
     public function destroy(Questionario $questionario, Questao $questao)
     {
         $questionario->questoes()->detach($questao);
 
-        return Inertia::render('QuestionarioQuestoes/Index', [
-            'questionario' => $questionario,
-            'questoesAdicionadas' => $questionario->questoes()->with('assunto')->get(), 
-            'questoesAdicionaveis' => Questao::whereNotIn('id', $questionario->questoes->pluck('id'))->with('assunto')->get(),
-        ]);
+        return Inertia::location(route('questionario_questoes.index', $questionario));
     }
 }
