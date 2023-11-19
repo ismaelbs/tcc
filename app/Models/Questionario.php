@@ -40,4 +40,8 @@ class Questionario extends Model
         $datetime = new DateTime($value);
         return $datetime->format($format);
     }
+
+    public function questoes() {
+        return $this->belongsToMany(Questao::class, 'questionario_questoes', 'questionario_id', 'questao_id');
+    }
 }

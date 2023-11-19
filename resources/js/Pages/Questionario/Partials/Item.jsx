@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ActionHeader } from '@/Pages/Shared/ActionHeader';
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import dayjs from '../../../dayjsconfig';
 import { EditForm } from './EditForm';
 
@@ -40,7 +40,8 @@ export default function Item({ questionario }) {
                 <ActionHeader settings={actionSettings} />
                 {editing && <EditForm questionario={questionario} setEditing={setEditing} />}
                 {!editing && (
-                    <div className="block">
+                    <Link as="button" disabled={!questionario.habilitado} href={route('questionario_questoes.index', questionario.id)}className="dark:text-gray-100 disabled:text-slate-500
+                    disabled:cursor-not-allowed block w-full text-left">
                         <div className="p-2 w-full dark:text-gray-100 disabled:text-slate-500
                         disabled:cursor-not-allowed">
                             {questionario.descricao}
@@ -49,7 +50,7 @@ export default function Item({ questionario }) {
                         disabled:cursor-not-allowed">
                             {dayjs(questionario.tempo, 'H:mm').format('[Finalizar em] HH [horas e] mm [minutos]')}
                         </div>
-                    </div>
+                    </Link>
                 )}
             </div>
         </div>
