@@ -8,17 +8,6 @@ use Inertia\Inertia;
 
 class QuestionarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return Inertia::render('Questionario/Index', [
@@ -26,43 +15,35 @@ class QuestionarioController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validateInput = $request->validate([
+            'descricao' => ['required', 'string'],
+            'tempo' => ['required', 'date_format:H:i'],
+        ]);
+        Questionario::create($validateInput);
+        return redirect(route('questionario.create'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Questionario $questionario)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Questionario $questionario)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Questionario $questionario)
     {
-        //
+        $validateInput = $request->validate([
+            'descricao' => ['required', 'string'],
+            'tempo' => ['required', 'date_format:H:i'],
+        ]);
+        $questionario->update($validateInput);
+        return redirect(route('questionario.create'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Questionario $questionario)
+    public function disable(Questionario $questionario)
     {
-        //
+        $questionario->update(['habilitado' => false]);
+        return redirect(route('questionario.create'));
+    }
+
+    public function enable(Questionario $questionario)
+    {
+        $questionario->update(['habilitado' => true]);
+        return redirect(route('questionario.create'));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,7 +20,6 @@ class Questionario extends Model
 
     protected $casts = [
         'habilitado' => 'boolean',
-        'tempo' => 'time'
     ];
 
     public function enable()
@@ -32,5 +32,12 @@ class Questionario extends Model
     {
         $this->habilitado = false;
         $this->save();
+    }
+
+    protected function getTempoAttribute($value)
+    {
+        $format = "H:i";
+        $datetime = new DateTime($value);
+        return $datetime->format($format);
     }
 }
