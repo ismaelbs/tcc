@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\ProfileController;
 use App\Models\Questionario;
+use App\Models\QuestionarioUsuario;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,9 +26,9 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function (Questionario $questionario) {
+Route::get('/dashboard', function () {
     return Inertia::render('Dashboard/Index', [
-        'questionarios' => $questionario->with('questoes')->get()
+        'questionarios' => Questionario::all(),
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -44,4 +45,5 @@ require __DIR__.'/questao.php';
 require __DIR__.'/respostas.php';
 require __DIR__.'/questionarios.php';
 require __DIR__.'/questionario_questoes.php';
+require __DIR__.'/questionario_usuario.php';
 require __DIR__.'/auth.php';
