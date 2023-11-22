@@ -44,4 +44,8 @@ class Questionario extends Model
     public function questoes() {
         return $this->belongsToMany(Questao::class, 'questionario_questoes', 'questionario_id', 'questao_id');
     }
+
+    public function questionarioUsuario() {
+        return $this->hasMany(QuestionarioUsuario::class, 'questionario_id', 'id');
+    }
 }
