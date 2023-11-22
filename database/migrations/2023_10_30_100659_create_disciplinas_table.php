@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('disciplinas', function (Blueprint $table) {
+        Schema::create('disciplinas', function (Blueprint $table) {
+            $table->id();
+            $table->string('descricao')->nullable(false);
+            $table->boolean('enabled')->default(true);
             $table->foreignId('corpo_conhecimento_id')->constrained();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('disciplinas', function (Blueprint $table) {
-            $table->dropForeign('corpo_conhecimento_id');
-        });
+        Schema::dropIfExists('disciplinas');
     }
 };
