@@ -8,7 +8,7 @@ use Inertia\Inertia;
 
 class QuestionarioUsuarioController extends Controller
 {
-    public function iniciar(Questionario $questionario) {
+    public function responder(Questionario $questionario) {
         $questionarioUsuario = QuestionarioUsuario::where([
             'questionario_id' => $questionario->id,
             'usuario_id' => auth()->user()->id,
