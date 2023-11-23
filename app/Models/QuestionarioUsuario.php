@@ -31,4 +31,9 @@ class QuestionarioUsuario extends Model
     {
         return $this->belongsTo(Usuario::class);
     }
+
+    public function questionarioUsuarioRespostas()
+    {
+        return $this->hasMany(QuestionarioUsuarioResposta::class);
+    }
 }

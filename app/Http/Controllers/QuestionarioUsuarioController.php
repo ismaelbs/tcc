@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Questionario;
 use App\Models\QuestionarioUsuario;
+use App\Models\QuestionarioUsuarioResposta;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class QuestionarioUsuarioController extends Controller
@@ -30,6 +32,18 @@ class QuestionarioUsuarioController extends Controller
 
         return Inertia::render('QuestionarioUsuario/Index', [
             'questionarioUsuario' => $questionarioUsuario->load('questionario.questoes.respostas'),
+        ]);
+    }
+
+    public function finalizar(QuestionarioUsuario $questionarioUsuario, Request $request) {
+        $data = $request->input('respostas', []);
+        $questionarioUsuario->update([
+            'status' => QuestionarioUsuario::STATUS_FINALIZADO,
+            'data_fim' => now(),
+        ]);
+        QuestionarioUsuarioResposta::insert($data);
+        return Inertia::render('Dashboard/Index', [
+            'questionarios' => Questionario::all(),
         ]);
     }
 }

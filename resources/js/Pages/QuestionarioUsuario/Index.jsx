@@ -23,17 +23,10 @@ export default function Index({ questionarioUsuario, auth }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
                     <div className="grid grid-cols-[1fr_400px] gap-2">
-                        <form>
-                            <View questoes={questoes} />
-                        </form>
+                        <View onActivate={onActivate} questoes={questoes} questionarioUsuario={questionarioUsuario}/>
                         <div className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                             <List onActivate={onActivate} questoes={questoes} />
                         </div>
-                    </div>
-                    <div className="flex justify-end">
-                        <button type="button" className="px-4 py-2 mt-5 text-sm font-semibold text-white uppercase bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
-                            Finalizar
-                        </button>
                     </div>
                 </div>
             </div>
