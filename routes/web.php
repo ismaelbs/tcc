@@ -45,5 +45,6 @@ require __DIR__.'/questao.php';
 require __DIR__.'/respostas.php';
 require __DIR__.'/questionarios.php';
 require __DIR__.'/questionario_questoes.php';
+require __DIR__.'/resultados.php';
 require __DIR__.'/questionario_usuario.php';
 require __DIR__.'/auth.php';
