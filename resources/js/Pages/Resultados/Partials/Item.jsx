@@ -24,7 +24,21 @@ export default function Item({ resultado }) {
 
         return '';
     }
+    const porcentagem = (calcularAcertos(respostas) / respostas.length * 100).toFixed(2);
+    const statusClasses = calculo => {
+        calculo = parseFloat(calculo);
+        console.log(calculo);
+        if (calculo >= 70.0) {
+            return 'bg-green-500';
+        }
 
+        if (calculo >= 40.0) {
+            return 'bg-yellow-500';
+        }
+
+        return 'bg-red-500';
+    }
+    
     return (
         <div key={id} className="bg-gray-700 rounded-lg p-5 mt-4">
             <div className="flex justify-between">
@@ -37,7 +51,12 @@ export default function Item({ resultado }) {
                 </button>
             </div>
             <p>Acertos: {calcularAcertos(respostas)} de {respostas.length}</p>
-            <p>Nota: {(calcularAcertos(respostas) / respostas.length * 100).toFixed(2)}%</p>
+            <div className="my-3">
+                <div className="progress cursor-progress bg-slate-900 rounded-md overflow-hidden">
+                    <div className={`progress-ba h-2 rounded-md ${statusClasses(porcentagem)}`} style={{ width: `${porcentagem}%` }}></div>
+                </div>
+            </div>
+            <p>Progresso: {porcentagem}%</p>
             <div className={`mt-4 grid grid-cols-1 gap-2 ${mostrarRespostas ? '' : 'hidden'}`}>
                 {respostas.map((respondeu) => (
                     <div key={respondeu.id} className="p-6 space-x-2 bg-gray-900 rounded-md">
@@ -46,7 +65,6 @@ export default function Item({ resultado }) {
                             {respondeu.questao.respostas.map((respostaQuestao) => (
                                 <li className={`p-5 flex flex-col space-x-2 bg-gray-900 rounded-md border-gray-500 border-spacing-2 border-2 border-dashed ${avaliarResposta(respondeu, respostaQuestao)}`} key={respostaQuestao.id}>
                                     {respostaQuestao.descricao}
-                                    {}
                                 </li>
                             ))}
                         </ul>
