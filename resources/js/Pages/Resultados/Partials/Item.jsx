@@ -27,7 +27,6 @@ export default function Item({ resultado }) {
     const porcentagem = (calcularAcertos(respostas) / respostas.length * 100).toFixed(2);
     const statusClasses = calculo => {
         calculo = parseFloat(calculo);
-        console.log(calculo);
         if (calculo >= 70.0) {
             return 'bg-green-500';
         }

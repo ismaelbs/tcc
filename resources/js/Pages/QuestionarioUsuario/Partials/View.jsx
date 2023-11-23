@@ -15,7 +15,6 @@ export function View({ questoes, onActivate, questionarioUsuario }) {
         });
         
         const naoRespondida = formControl.find(f => !f.resposta_id);
-        console.log(naoRespondida);
         if (naoRespondida) {
             onActivate(questoes.find(q => q.id === naoRespondida.questao_id));
             alert('Responda todas as questões antes de finalizar');
