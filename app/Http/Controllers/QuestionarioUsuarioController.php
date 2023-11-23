@@ -42,8 +42,6 @@ class QuestionarioUsuarioController extends Controller
             'data_fim' => now(),
         ]);
         QuestionarioUsuarioResposta::insert($data);
-        return Inertia::render('Dashboard/Index', [
-            'questionarios' => Questionario::all(),
-        ]);
+        return redirect()->route('resultados.index');
     }
 }
