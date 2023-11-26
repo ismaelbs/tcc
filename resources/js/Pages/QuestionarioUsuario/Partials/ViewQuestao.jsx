@@ -1,9 +1,9 @@
 export default function ViewQuestao({ questao }) {
     return (
         <div className={`p-5 flex flex-col space-x-2 bg-gray-900 rounded-md border-gray-500 border-spacing-2 border-2 border-dashed ${!questao.ativa && 'hidden'}`} key={questao.id}>
-            <div className="flex-1 flex-col">
+            <div className="flex-1 flex-col mb-5">
                 <div className="block overflow-hidden">
-                    <p className="text-md text-gray-600 dark:text-gray-400">{questao.enunciado}</p>
+                    <p className="text-md text-justify text-gray-600 dark:text-gray-400">{questao.enunciado}</p>
                 </div>
             </div>
             <div className="block overflow-hidden">
