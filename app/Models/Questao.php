@@ -31,6 +31,10 @@ class Questao extends Model
         return $this->hasMany(Resposta::class);
     }
 
+    public function dicas(): HasMany {
+        return $this->hasMany(Dica::class);
+    }
+
     public function enable(): void {
         $this->enabled = true;
         $this->save();
