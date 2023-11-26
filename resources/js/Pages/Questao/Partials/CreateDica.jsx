@@ -1,42 +1,66 @@
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
-import { CreateContext } from "@/Pages/Shared/Context/useCreateContext";
-import { CreateForm } from "@/Pages/Shared/CreateForm";
+import PrimaryButton from "@/Components/PrimaryButton";
+import { Transition } from "@headlessui/react";
 import { SectionHeader } from "@/Pages/Shared/SectionHeader";
 import { useForm } from "@inertiajs/react";
+import ListDicas from "./ListDica";
 
 export default function CreateDica({ questao }) {
     const { data, setData, post, errors, processing, recentlySuccessful, reset } = useForm({
         questao_id: questao.id,
+        assunto_id: questao.assunto_id,
         dica: '',
     });
 
-    return (
-        <CreateContext.Provider value={{ post, processing, recentlySuccessful, reset }}>
-            <section>
-                <SectionHeader
-                    title="Criar dica"
-                    description="Crie dica para a questão."
-                />
-                <CreateForm path="dica.store">
-                    <div>
-                        <InputLabel value="Dica" />
-                        <TextInput
-                            id="dica"
-                            name="dica"
-                            className="mt-1 block w-full"
-                            value={data.dica}
-                            onChange={(e) => setData('dica', e.target.value)}
-                            required
-                            isFocused
-                            autoComplete="Dica"
-                        />
+    const onSubmitHandler = e => {
+        e.preventDefault();
+        post(route('dica.store', questao.id), {
+            onSuccess: () => reset(),
+            preventScroll: true,
+        });
+    }
 
-                        <InputError className="mt-2" message={errors.dica} />
-                    </div>
-                </CreateForm>
-            </section>
-        </CreateContext.Provider>
+    return (
+
+        <section>
+            <SectionHeader
+                title="Criar dica"
+                description="Crie dica para a questão."
+            />
+            <ListDicas dicas={questao.dicas} />
+
+            <form onSubmit={onSubmitHandler} className="mt-6 space-y-6">
+                <div>
+                    <InputLabel value="Dica" />
+                    <TextInput
+                        id="dica"
+                        name="dica"
+                        className="mt-1 block w-full"
+                        value={data.dica}
+                        onChange={(e) => setData('dica', e.target.value)}
+                        required
+                        isFocused
+                        autoComplete="Dica"
+                    />
+
+                    <InputError className="mt-2" message={errors.dica} />
+                </div>
+
+                <div className="flex items-center gap-4">
+                    <PrimaryButton disabled={processing}>Salvar</PrimaryButton>
+                    <Transition
+                        show={recentlySuccessful}
+                        enter="transition ease-in-out"
+                        enterFrom="opacity-0"
+                        leave="transition ease-in-out"
+                        leaveTo="opacity-0"
+                    >
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Criado.</p>
+                    </Transition>
+                </div>
+            </form>
+        </section>
     );
 }

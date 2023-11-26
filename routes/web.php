@@ -1,7 +1,6 @@
 <?php
 use App\Http\Controllers\ProfileController;
 use App\Models\Questionario;
-use App\Models\QuestionarioUsuario;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -47,4 +46,5 @@ require __DIR__.'/questionarios.php';
 require __DIR__.'/questionario_questoes.php';
 require __DIR__.'/resultados.php';
 require __DIR__.'/questionario_usuario.php';
+require __DIR__.'/dicas.php';
 require __DIR__.'/auth.php';

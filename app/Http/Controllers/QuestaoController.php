@@ -17,7 +17,7 @@ class QuestaoController extends Controller
     {
         return Inertia::render('Questao/Index', [
             'assunto' => $assunto,
-            'questoes' => $assunto->questoes()->with('respostas')->get(),
+            'questoes' => $assunto->questoes()->with('respostas')->with('dicas')->get(),
         ]);
     }
 
