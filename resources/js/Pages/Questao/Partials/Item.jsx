@@ -5,10 +5,13 @@ import { EditForm } from './EditForm';
 import { BiMessageSquareAdd } from "react-icons/bi";
 import { RespostaModal } from './RespostaModal';
 import { RespostaItem } from './RespostaItem';
+import { PiChatCircleTextFill } from "react-icons/pi";
+import { DicasModal } from './DicasModal';
 
 export default function Item({ questao }) {
     const [editing, setEditing] = useState(false);
     const [respostaModal, setRespostaModal] = useState(false);
+    const [dicasModal, setDicasModal] = useState(false);
     const { patch } = useForm(questao);
 
     const onDisableHandler = (e) => {
@@ -35,11 +38,15 @@ export default function Item({ questao }) {
         <div className="p-6 flex space-x-2 bg-gray-900 rounded-md">
             <div className="flex-1 flex-col">
                 <ActionHeader settings={actionSettings}>
+                    <button type="button" title="Receber dica" className="block w-full p-2 text-left text-sm leading-5 text-gray-300 hover:bg-gray-800 focus:bg-gray-800 hover:text-gray-100 transition duration-150 ease-in-out disabled:cursor-not-allowed" onClick={() => setDicasModal(true)}>
+                        <PiChatCircleTextFill />
+                    </button>
                     <button className="block w-full p-2 text-left text-sm leading-5 text-gray-300 hover:bg-gray-800 focus:bg-gray-800 hover:text-gray-100 transition duration-150 ease-in-out disabled:cursor-not-allowed" onClick={() => setRespostaModal(true)} >
                         <BiMessageSquareAdd />
                     </button>
                 </ActionHeader>
                 {respostaModal && <RespostaModal closeModal={() => setRespostaModal(false)} questao={questao} />}
+                {dicasModal && <DicasModal closeModal={() => setDicasModal(false)} questao={questao} />}
                 <div className="block">
                     {editing && <EditForm questao={questao} setEditing={setEditing} />}
                     {!editing &&
