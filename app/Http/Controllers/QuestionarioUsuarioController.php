@@ -19,7 +19,7 @@ class QuestionarioUsuarioController extends Controller
 
         if ($questionarioUsuario) {
             return Inertia::render('QuestionarioUsuario/Index', [
-                'questionarioUsuario' => $questionarioUsuario->load('questionario.questoes.respostas'),
+                'questionarioUsuario' => $questionarioUsuario->load(['questionario.questoes.respostas', 'questionario.questoes.dicas']),
             ]);
         }
 
@@ -31,7 +31,7 @@ class QuestionarioUsuarioController extends Controller
         ]);
 
         return Inertia::render('QuestionarioUsuario/Index', [
-            'questionarioUsuario' => $questionarioUsuario->load('questionario.questoes.respostas'),
+            'questionarioUsuario' => $questionarioUsuario->load(['questionario.questoes.respostas', 'questionario.questoes.dicas']),
         ]);
     }
 
