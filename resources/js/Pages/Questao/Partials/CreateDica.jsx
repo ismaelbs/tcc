@@ -5,6 +5,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import { Transition } from "@headlessui/react";
 import { SectionHeader } from "@/Pages/Shared/SectionHeader";
 import { useForm } from "@inertiajs/react";
+import { TbFileTextAi } from "react-icons/tb";
 import ListDicas from "./ListDica";
 
 export default function CreateDica({ questao }) {
@@ -34,16 +35,21 @@ export default function CreateDica({ questao }) {
             <form onSubmit={onSubmitHandler} className="mt-6 space-y-6">
                 <div>
                     <InputLabel value="Dica" />
-                    <TextInput
-                        id="dica"
-                        name="dica"
-                        className="mt-1 block w-full"
-                        value={data.dica}
-                        onChange={(e) => setData('dica', e.target.value)}
-                        required
-                        isFocused
-                        autoComplete="Dica"
-                    />
+                    <div className="flex justify-center items-stretch gap-2 mt-1">
+                        <TextInput
+                            id="dica"
+                            name="dica"
+                            className="block w-full"
+                            value={data.dica}
+                            onChange={(e) => setData('dica', e.target.value)}
+                            required
+                            isFocused
+                            autoComplete="Dica"
+                        />
+                        <button className="bg-slate-100 rounded-sm p-2">
+                            <TbFileTextAi />
+                        </button>
+                    </div>
 
                     <InputError className="mt-2" message={errors.dica} />
                 </div>
